@@ -5,7 +5,7 @@
 
 ## 12 MHz Clock Signal
 set_property -dict {PACKAGE_PIN L17 IOSTANDARD LVCMOS33} [get_ports sys_clk]
-create_clock -period 83.330 -name sys_clk -waveform {0.000 41.660} -add [get_ports sys_clk]
+create_clock -period 83.320 -name sys_clk -waveform {0.000 41.660} -add [get_ports sys_clk]
 
 ## LEDs
 set_property -dict {PACKAGE_PIN A17 IOSTANDARD LVCMOS33} [get_ports led_drv_0]

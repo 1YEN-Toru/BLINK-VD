@@ -3,10 +3,12 @@
 
 module	test;
 
+
 reg		sys_clk;
 reg		sys_rst;
 
-// toggle clk every 40ns
+
+// clk (12.5MHz)
 always
 	begin
 		sys_clk=1'b1;
@@ -20,29 +22,25 @@ initial
 	begin
 		$dumpfile ("test.vcd");
 		$dumpvars (0, test);
-
-		// initialize
-		sys_rst=1'b0;
-
-//		// run
-//		repeat (256)
-//			@(posedge sys_clk);
+		$timeformat (-9,0,"",8);
 
 		// user reset
 		sys_rst=1'b1;
 		repeat (4)
 			@(posedge sys_clk);
 		sys_rst=1'b0;
+
 		// run
 		repeat (256)
 			@(posedge sys_clk);
 
-		// finish
+		// finish simulation
 		$finish;
 	end
 
+
 // DUT
-blinkv	top (
+blink	top (
 	.sys_clk(sys_clk),
 	.sys_rst(sys_rst),
 	.led_drv_0(led_drv_0),
@@ -53,4 +51,3 @@ blinkv	top (
 );
 
 endmodule
-

@@ -1,4 +1,4 @@
-module	blinkv (
+module	blink (
 	sys_clk,
 	sys_rst,
 	led_drv_0,
@@ -19,6 +19,8 @@ output	led_drv_b;
 
 wire	clk=sys_clk;
 wire	rst_n=~sys_rst;
+wire	LED_BUILTIN;
+wire	OVF;
 wire	[23:0]	TPRD;
 assign	led_drv_0=~LED_BUILTIN;
 assign	led_drv_1=~LED_BUILTIN;
@@ -27,7 +29,7 @@ assign	led_drv_g=LED_BUILTIN | 1'b1;
 assign	led_drv_b=LED_BUILTIN | 1'b1;
 
 
-blinkv_fsm	fsm (
+blink_fsm	fsm (
 	.clk(clk),	// Input
 	.rst_n(rst_n),	// Input
 	.OVF(OVF),	// Input
@@ -35,7 +37,7 @@ blinkv_fsm	fsm (
 	.TPRD(TPRD[23:0])	// Output
 );
 
-blinkv_tim	tim (
+blink_tim	tim (
 	.clk(clk),	// Input
 	.rst_n(rst_n),	// Input
 	.TPRD(TPRD[23:0]),	// Input
@@ -45,7 +47,7 @@ blinkv_tim	tim (
 endmodule
 
 
-module	blinkv_tim (
+module	blink_tim (
 	clk,
 	rst_n,
 	TPRD,
