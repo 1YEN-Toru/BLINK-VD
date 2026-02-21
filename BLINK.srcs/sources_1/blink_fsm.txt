@@ -1,0 +1,45 @@
+casez	STAT[1:0]	OVF	output	NEXT[1:0]	LED_BUILTIN_t	TPRD[23:0]	comment
+	T0	0		T0	0	TPRD_S	LED on 150ms
+	T0	1		T1	1	TPRD_S	got overflow, move to T1
+	T1	0		T1	1	TPRD_S	LED off 150ms
+	T1	1		T2	0	TPRD_S	got overflow, move to T2
+	T2	0		T2	0	TPRD_S	LED on 150ms
+	T2	1		T3	1	TPRD_L	got overflow, move to T3
+	T3	0		T3	1	TPRD_L	LED off 550ms
+	T3	1		T0	0	TPRD_S	got overflow, move to T0
+default				T0	0	TPRD_S	
+							
+ff LED_BUILTIN clk LED_BUILTIN_t !rst_n 1'b1							
+ff STAT[1:0] clk NEXT[1:0] !rst_n T0							
+							
+module blink_fsm							
+							
+input\tclk;							
+input\trst_n;							
+input\tOVF;							
+output\tLED_BUILTIN;							
+output\t[23:0]\tTPRD;							
+							
+							
+// state code							
+parameter\t[1:0]\tT0=2'h0;							
+parameter\t[1:0]\tT1=2'h1;							
+parameter\t[1:0]\tT2=2'h2;							
+parameter\t[1:0]\tT3=2'h3;							
+// timer period							
+//`define\t\tSIMULATION							
+`ifdef\t\tSIMULATION							
+parameter\t[23:0]\tTPRD_S=24'd15 - 24'd1;							
+parameter\t[23:0]\tTPRD_L=24'd55 - 24'd1;							
+`else\t//\tSIMULATION							
+//parameter\t[23:0]\tF_CLK_KHZ=24'd24_000;\t// fclk=24MHz (for Tang Primer board)							
+parameter\t[23:0]\tF_CLK_KHZ=24'd12_000;\t// fclk=12MHz (for Cmod A7 board)							
+parameter\t[23:0]\tTPRD_S=24'd150*F_CLK_KHZ - 24'h1;\t// 150ms for fclk							
+parameter\t[23:0]\tTPRD_L=24'd550*F_CLK_KHZ - 24'h1;\t// 550ms for fclk							
+`endif\t//\tSIMULATION							
+							
+reg\t\t[1:0]\tSTAT;							
+reg\t\t[1:0]\tNEXT;							
+reg\t\tLED_BUILTIN;							
+reg\t\tLED_BUILTIN_t;							
+reg\t\t[23:0]\tTPRD;							
