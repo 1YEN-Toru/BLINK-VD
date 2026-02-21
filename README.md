@@ -11,24 +11,26 @@
 
 ## Vivado project
  Vivado is the Integrated Development Environment (IDE) of Xilinx FPGAs.
- 
-- BLINKV.xpr
+
+- BLINK.xpr
 
 ## RTL
  Register Transfer Level (RTL) Hardware Description Language (HDL).
- 
-- [blinkv.v](BLINKV.srcs/sources_1/blinkv.v)
-- [blinkv_fsm.v](BLINKV.srcs/sources_1/blinkv_fsm.v)
+
+- [blink.v](BLINK.srcs/sources_1/blink.v)
+- [blink_fsm.v](BLINK.srcs/sources_1/blink_fsm.v)
+- [blink_fsm.txt](BLINK.srcs/sources_1/blink_fsm.txt)
+	- The source file to create "[blink_fsm.v](BLINK.srcs/sources_1/blink_fsm.v)" by using [Olive+](https://hello.world.coocan.jp/VA008835/OLIVE+/Olive+.html) script [tab2v.olv](https://hello.world.coocan.jp/ARDUINO15/arduino15_2.html#TAB2V).
 
 ## Constraint
  Constraints file for Xilinx Artix-7 XC7A35T.
 
-- [blinkv.xdc](BLINKV.srcs/constrs_1/blinkv.xdc)
+- [blink.xdc](BLINK.srcs/constrs_1/blink.xdc)
 
 ## Test bench
- Behavioral test bench for blinkv.
+ Behavioral test bench for blink.
 
-- [test.v](BLINKV.srcs/sim_1/test.v)
+- [test.v](BLINK.srcs/sim_1/test.v)
 
 --------
 # Demonstration movie
@@ -44,8 +46,8 @@
 
 --------
 # Disclaimer
- All data in this repository are unsupported and unguaranteed.
-
- Use at your own risk.
-
+>[!CAUTION]
+> All data in this repository are unsupported and unguaranteed.
+>
+> Use at your own risk.
 --------
